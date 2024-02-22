@@ -4,7 +4,7 @@ An experimental Beacon Object File (BOF) that provides an alternative to the `sp
 
 1. Obtain a handle to the target process.
 2. Obtain a handle to the process' primary token.
-3. Duplicate the parimary token to an impersonation token.
+3. Duplicate the primary token to an impersonation token.
 4. Get the Beacon `spawnto` value.
 5. Attempt to spawn a new process with the duplicated token using `CreateProcessWithTokenW`.
    - If this attempt fails, try `CreateProcessAsUserW`.
