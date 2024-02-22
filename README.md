@@ -7,9 +7,9 @@ An experimental Beacon Object File (BOF) that provides an alternative to the `sp
 3. Duplicate the parimary token to an impersonation token.
 4. Get the Beacon `spawnto` value.
 5. Attempt to spawn a new process with the duplicated token using `CreateProcessWithTokenW`.
- * If this attempt fails, try `CreateProcessAsUserW`.
+    5.5 If this attempt fails, try `CreateProcessAsUserW`.
 6. Inject the Beacon shellcode into the spawned process.
- * Link to the Beacon in the case of P2P.
+    6.5 Link to the Beacon in the case of P2P.
 
 
 ### Example
@@ -32,4 +32,4 @@ Spawned PID 45668 and injected 297472 bytes
 [+] established link to child beacon: 192.168.0.195
 ```
 
-![Beacon](beacon.png)
+![Beacons](beacons.png)
